@@ -1,17 +1,19 @@
-    const express = require("express");
-const dotenv = require("dotenv");
-const cors = require("cors");
+require("dotenv").config();
 
-dotenv.config();
+const express = require("express");
+const connectDB = require("./config/db");
+
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-app.use(cors());
+connectDB();
+
+// IMPORTANT middleware
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Voucher Exchange API Running 🚀");
-});
+// routes
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
